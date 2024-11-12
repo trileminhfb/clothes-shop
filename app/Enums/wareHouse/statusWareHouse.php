@@ -13,7 +13,7 @@ use BenSampo\Enum\Enum;
  */
 final class statusWareHouse extends Enum
 {
-    const AVAILABLE = 0;
+    const UNAVAILABLE = 0;
     const LOW = 1;
-    const UNAVAILABLE = 2;
+    const AVAILABLE = 2;
 }

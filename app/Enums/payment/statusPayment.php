@@ -13,6 +13,6 @@ use BenSampo\Enum\Enum;
  */
 final class statusPayment extends Enum
 {
-    const ENABLE = 0;
-    const DISABLE = 1;
+    const DISABLE = 0;
+    const ENABLE = 1;
 }

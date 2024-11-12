@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Enums\brand;
+namespace App\Enums\product;
 
 use BenSampo\Enum\Enum;
 
@@ -11,8 +11,8 @@ use BenSampo\Enum\Enum;
  * @method static static OptionTwo()
  * @method static static OptionThree()
  */
-final class statusBrand extends Enum
+final class statusProduct extends Enum
 {
-    const DISABLE = 0;
-    const ENABLE = 1;
+    const UNAVAILABLE = 0;
+    const AVAILABLE = 1;
 }
