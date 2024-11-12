@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('image');
             $table->integer('quantity');
             $table->integer('status')->default(statusProduct::AVAILABLE);
