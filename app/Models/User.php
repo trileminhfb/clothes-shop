@@ -27,4 +27,9 @@ class User extends Authenticatable
         'phoneNumber',
         'email',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role');
+    }
 }
