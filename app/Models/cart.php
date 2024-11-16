@@ -24,4 +24,9 @@ class cart extends Model
     {
         return $this->belongsTo(Product::class, 'id_product');
     }
+
+    public function totalCart()
+    {
+        return $this->belongsTo(totalCart::class, 'id_total_cart');
+    }
 }
