@@ -20,4 +20,9 @@ class product extends Model
         'id_brand',
         'gender',
     ];
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'id_product');
+    }
 }
