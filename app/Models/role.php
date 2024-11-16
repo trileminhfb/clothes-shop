@@ -12,6 +12,7 @@ class role extends Model
     protected $fillable = [
         'nameRole',
     ];
+
     public function users()
     {
         return $this->hasMany(User::class, 'id_role');
