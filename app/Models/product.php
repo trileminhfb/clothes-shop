@@ -30,4 +30,9 @@ class product extends Model
     {
         return $this->belongsTo(WareHouse::class, 'id_product');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category');
+    }
 }
