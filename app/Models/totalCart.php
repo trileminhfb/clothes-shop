@@ -16,4 +16,9 @@ class totalCart extends Model
         'address',
         'phoneNumber',
     ];
+
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class, 'id_cart');
+    }
 }
