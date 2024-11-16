@@ -14,4 +14,9 @@ class wareHouse extends Model
         'quantity',
         'status',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'id_product');
+    }
 }
