@@ -25,4 +25,9 @@ class product extends Model
     {
         return $this->hasMany(Cart::class, 'id_product');
     }
+
+    public function wareHouse()
+    {
+        return $this->belongsTo(WareHouse::class, 'id_product');
+    }
 }
