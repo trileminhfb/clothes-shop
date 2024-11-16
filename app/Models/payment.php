@@ -13,4 +13,9 @@ class payment extends Model
         'namePaymentMethod',
         'status',
     ];
+
+    public function totalCarts()
+    {
+        return $this->hasMany(TotalCart::class, 'id_payment');
+    }
 }
