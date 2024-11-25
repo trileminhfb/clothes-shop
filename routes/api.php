@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -62,4 +63,12 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/', [UserController::class, 'createData']);
     Route::put('/', [UserController::class, 'updateData']);
     Route::delete('/{id}', [UserController::class, 'deleteData']);
+});
+
+Route::group(['prefix' => 'cart'], function () {
+    Route::get('/{id_user}', [CartController::class, 'getData']);
+    Route::post('/', [CartController::class, 'createData']);
+    Route::put('/', [CartController::class, 'updateData']);
+    Route::delete('/{id}', [CartController::class, 'deleteData']);
+    Route::delete('/user/{id_user}', [CartController::class, 'deleteAllFromTable']);
 });
