@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('role', function (Blueprint $table) {
             $table->id();
-            $table->string('nameRole');
+            $table->string('nameRole')->unique();
+            $table->timestamps();
         });
     }
 
