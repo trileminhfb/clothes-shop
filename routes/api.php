@@ -3,7 +3,9 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +40,18 @@ Route::group(['prefix' => 'category'], function () {
     Route::post('/', [CategoryController::class, 'createData']);
     Route::put('/', [CategoryController::class, 'updateData']);
     Route::delete('/{id}', [CategoryController::class, 'deleteData']);
+});
+
+Route::group(['prefix' => 'warehouse'], function () {
+    Route::get('/', [WarehouseController::class, 'getData']);
+    Route::post('/', [WarehouseController::class, 'createData']);
+    Route::put('/', [WarehouseController::class, 'updateData']);
+    Route::delete('/{id}', [WarehouseController::class, 'deleteData']);
+});
+
+Route::group(['prefix' => 'product'], function () {
+    Route::get('/', [ProductController::class, 'getData']);
+    Route::post('/', [ProductController::class, 'createData']);
+    Route::put('/', [ProductController::class, 'updateData']);
+    Route::delete('/{id}', [ProductController::class, 'deleteData']);
 });
