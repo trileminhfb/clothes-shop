@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\WareHouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
@@ -20,30 +23,47 @@ class ProductController extends Controller
 
     public function createData(Request $request)
     {
-        $check = Product::where('name', $request->name)->first();
+        try {
+            DB::beginTransaction();
 
-        if ($check) {
+            $check = Product::where('name', $request->name)->first();
+
+            if ($check) {
+                return response()->json([
+                    'message' => 'Sản phẩm đã tồn tại',
+                ], Response::HTTP_BAD_REQUEST);
+            }
+
+            $product = Product::create([
+                'name' => $request->name,
+                'price' => $request->price,
+                'description' => $request->description,
+                'image' => $request->image,
+                'quantity' => $request->quantity,
+                'status' => $request->status,
+                'id_category' => $request->id_category,
+                'id_brand' => $request->id_brand,
+                'gender' => $request->gender,
+            ]);
+
+            WareHouse::create([
+                'id_product' => $product->id,
+                'quantity'   => 0,
+                'status'     => 1,
+            ]);
+
+            DB::commit();
+
             return response()->json([
-                'message' => 'Sản phẩm đã tồn tại',
+                'message' => 'Tạo sản phẩm thành công',
+                'data' => $product,
+            ], Response::HTTP_CREATED);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $th->getMessage(),
             ], Response::HTTP_BAD_REQUEST);
         }
-
-        $product = Product::create([
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'image' => $request->image,
-            'quantity' => $request->quantity,
-            'status' => $request->status,
-            'id_category' => $request->id_category,
-            'id_brand' => $request->id_brand,
-            'gender' => $request->gender,
-        ]);
-
-        return response()->json([
-            'message' => 'Tạo sản phẩm thành công',
-            'data' => $product,
-        ], Response::HTTP_CREATED);
     }
 
     public function updateData(Request $request)
@@ -67,11 +87,10 @@ class ProductController extends Controller
 
     public function deleteData($id)
     {
-        $check = Product::find($id);
+        $product = Product::find($id);
 
-        if ($check) {
-            $check->delete();
-
+        if ($product) {
+            $product->delete();
             return response()->json([
                 'message' => 'Xoá sản phẩm thành công',
                 'id' => $id,
