@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class WarehouseController extends Controller
 {
-
     public function getData()
     {
         $data = WareHouse::with(['products'])->get();
@@ -56,7 +55,6 @@ class WarehouseController extends Controller
                 'data' => $warehouse,
             ], Response::HTTP_BAD_REQUEST);
         }
-
         $warehouse->update($request->all());
 
         return response()->json([
@@ -68,13 +66,12 @@ class WarehouseController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $warehouse = WareHouse::find($id);
 
             if ($warehouse) {
                 $warehouse->delete();
-
                 DB::commit();
+
                 return response()->json([
                     'message' => 'Xoá sản phẩm trong kho thành công',
                     'id' => $id,
@@ -86,6 +83,7 @@ class WarehouseController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return response()->json([
                 'message' => $th->getMessage(),
             ], Response::HTTP_BAD_REQUEST);

@@ -25,7 +25,6 @@ class ProductController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $check = Product::where('name', $request->name)->first();
 
             if ($check) {
@@ -51,7 +50,6 @@ class ProductController extends Controller
                 'quantity'   => 0,
                 'status'     => 1,
             ]);
-
             DB::commit();
 
             return response()->json([
@@ -60,6 +58,7 @@ class ProductController extends Controller
             ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return response()->json([
                 'message' => $th->getMessage(),
             ], Response::HTTP_BAD_REQUEST);
@@ -76,7 +75,6 @@ class ProductController extends Controller
                 'data' => $product,
             ], Response::HTTP_BAD_REQUEST);
         }
-
         $product->update($request->all());
 
         return response()->json([

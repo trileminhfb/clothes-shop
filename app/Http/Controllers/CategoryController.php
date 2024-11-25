@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
-
     public function getData()
     {
         $data = Category::get();
@@ -29,34 +28,32 @@ class CategoryController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $brand = Category::create([
+        $category = Category::create([
             'nameCategory' => $request->nameCategory,
             'status' => $request->status,
         ]);
 
         return response()->json([
             'message' => 'Tạo thể loại thành công',
-            'data' => $brand,
+            'data' => $category,
         ], Response::HTTP_CREATED);
     }
 
     public function updateData(Request $request)
     {
+        $category = Category::find($request->id);
 
-        $brand = Category::find($request->id);
-
-        if (!$brand) {
+        if (!$category) {
             return response()->json([
                 'message' => 'Không có thể loại này',
-                'data' => $brand,
+                'data' => $category,
             ], Response::HTTP_BAD_REQUEST);
         }
-
-        $brand->update($request->all());
+        $category->update($request->all());
 
         return response()->json([
             'message' => 'Cập nhật thể loại thành công',
-            'data' => $brand,
+            'data' => $category,
         ], Response::HTTP_OK);
     }
 
