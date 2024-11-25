@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('id_category');
             $table->integer('id_brand');
             $table->integer('gender')->default(gender::MEN);
+            $table->timestamps();
         });
     }
 

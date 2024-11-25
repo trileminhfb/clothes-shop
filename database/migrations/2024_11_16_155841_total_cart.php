@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('orderTime');
             $table->string('address');
             $table->string('phoneNumber');
+            $table->timestamps();
         });
     }
 

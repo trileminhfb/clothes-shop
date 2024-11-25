@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('id_product');
             $table->integer('quantity');
             $table->integer('status')->default(statusWareHouse::AVAILABLE);
+            $table->timestamps();
         });
     }
 

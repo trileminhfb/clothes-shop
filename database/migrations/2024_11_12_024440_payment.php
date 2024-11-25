@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('namePaymentMethod');
             $table->integer('status')->default(statusPayment::ENABLE);
+            $table->timestamps();
         });
     }
 

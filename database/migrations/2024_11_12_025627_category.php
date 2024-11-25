@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('nameCategory');
             $table->integer('status')->default(statusCategory::ENABLE);
+            $table->timestamps();
         });
     }
 

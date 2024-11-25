@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('nameBrand');
             $table->integer('status')->default(statusBrand::ENABLE);
+            $table->timestamps();
         });
     }
 
