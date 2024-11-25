@@ -18,7 +18,6 @@ class PaymentController extends Controller
         ], Response::HTTP_OK);
     }
 
-
     public function createData(Request $request)
     {
         $check = Payment::where('namePaymentMethod', $request->namePaymentMethod)->first();
