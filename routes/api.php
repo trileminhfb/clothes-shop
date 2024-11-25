@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TotalCartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Http\Request;
@@ -71,4 +72,11 @@ Route::group(['prefix' => 'cart'], function () {
     Route::put('/', [CartController::class, 'updateData']);
     Route::delete('/{id}', [CartController::class, 'deleteData']);
     Route::delete('/user/{id_user}', [CartController::class, 'deleteAllFromTable']);
+});
+
+Route::group(['prefix' => 'totalCart'], function () {
+    Route::get('/', [TotalCartController::class, 'getData']);
+    Route::post('/', [TotalCartController::class, 'createData']);
+    Route::put('/', [TotalCartController::class, 'updateData']);
+    Route::delete('/{id}', [TotalCartController::class, 'deleteData']);
 });
