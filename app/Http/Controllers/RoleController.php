@@ -18,7 +18,6 @@ class RoleController extends Controller
         ], Response::HTTP_OK);
     }
 
-
     public function createData(Request $request)
     {
         $check = Role::where('nameRole', $request->nameRole)->first();
