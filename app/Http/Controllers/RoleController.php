@@ -18,36 +18,62 @@ class RoleController extends Controller
         ], Response::HTTP_OK);
     }
 
+
     public function createData(Request $request)
     {
-        try {
-            //code...
+        $check = Role::where('nameRole', $request->nameRole)->first();
 
-            $request->validate([
-                'nameRole' => 'required|string|max:255',
-            ]);
-
-            $check = Role::where('nameRole', $request->nameRole)->first();
-
-            if ($check) {
-                return response()->json([
-                    'message' => 'Role tồn tại'
-                ], Response::HTTP_BAD_REQUEST);
-            }
-
-            $role = Role::create([
-                'nameRole' => 'abccc',
-            ]);
-
+        if ($check) {
             return response()->json([
-                'data' => $role,
-                'message' => 'Tạo role thành công'
-            ], Response::HTTP_CREATED);
-        } catch (\Throwable $th) {
-
-            return response()->json([
-                'message' => $th->getMessage()
-            ], Response::HTTP_CREATED);
+                'message' => 'Role đã tồn tại',
+            ], Response::HTTP_BAD_REQUEST);
         }
+
+        $role = Role::create([
+            'nameRole'   => $request->nameRole,
+        ]);
+
+        return response()->json([
+            'message' => 'Tạo Role thành công',
+            'data' => $role,
+        ], Response::HTTP_CREATED);
+    }
+
+    public function updateData(Request $request)
+    {
+
+        $role = Role::find($request->id);
+
+        if (!$role) {
+            return response()->json([
+                'message' => 'Không có role này',
+                'data' => $role,
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $role->update($request->all());
+
+        return response()->json([
+            'message' => 'Cập nhật role thành công',
+            'data' => $role,
+        ], Response::HTTP_OK);
+    }
+
+    public function deleteData($id)
+    {
+        $check = Role::find($id);
+
+        if ($check) {
+            $check->delete();
+
+            return response()->json([
+                'message' => 'Xoá Role thành công',
+                'id' => $id,
+            ], Response::HTTP_OK);
+        }
+
+        return response()->json([
+            'message' => 'Role không tồn tại',
+        ], Response::HTTP_BAD_REQUEST);
     }
 }
