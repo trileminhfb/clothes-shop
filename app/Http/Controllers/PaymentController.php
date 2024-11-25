@@ -41,7 +41,6 @@ class PaymentController extends Controller
 
     public function updateData(Request $request)
     {
-
         $payment = Payment::find($request->id);
 
         if (!$payment) {

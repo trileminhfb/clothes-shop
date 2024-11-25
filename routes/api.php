@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -54,4 +55,11 @@ Route::group(['prefix' => 'product'], function () {
     Route::post('/', [ProductController::class, 'createData']);
     Route::put('/', [ProductController::class, 'updateData']);
     Route::delete('/{id}', [ProductController::class, 'deleteData']);
+});
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'getData']);
+    Route::post('/', [UserController::class, 'createData']);
+    Route::put('/', [UserController::class, 'updateData']);
+    Route::delete('/{id}', [UserController::class, 'deleteData']);
 });

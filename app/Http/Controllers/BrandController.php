@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BrandController extends Controller
 {
-
     public function getData()
     {
         $data = Brand::get();
@@ -42,7 +41,6 @@ class BrandController extends Controller
 
     public function updateData(Request $request)
     {
-
         $brand = Brand::find($request->id);
 
         if (!$brand) {
@@ -51,7 +49,6 @@ class BrandController extends Controller
                 'data' => $brand,
             ], Response::HTTP_BAD_REQUEST);
         }
-
         $brand->update($request->all());
 
         return response()->json([
