@@ -14,10 +14,9 @@ class RoleController extends Controller
 
         return response()->json([
             'message' => 'lấy data Role thành công',
-            '' => $role,
+            'data' => $role,
         ], Response::HTTP_OK);
     }
-
 
     public function createData(Request $request)
     {
