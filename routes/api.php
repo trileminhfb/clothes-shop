@@ -26,18 +26,11 @@ Route::group(['prefix' => 'payment'], function () {
     Route::delete('/{id}', [PaymentController::class, 'deleteData']);
 });
 
-Route::group(['prefix' => 'category'], function () {
-    Route::get('/', [CategoryController::class, 'getData']);
-    Route::post('/', [CategoryController::class, 'createData']);
-    Route::put('/', [CategoryController::class, 'updateData']);
-    Route::delete('/{id}', [CategoryController::class, 'deleteData']);
-});
-
-Route::group(['prefix' => 'category'], function () {
-    Route::get('/', [CategoryController::class, 'getData']);
-    Route::post('/', [CategoryController::class, 'createData']);
-    Route::put('/', [CategoryController::class, 'updateData']);
-    Route::delete('/{id}', [CategoryController::class, 'deleteData']);
+Route::group(['prefix' => 'brand'], function () {
+    Route::get('/', [BrandController::class, 'getData']);
+    Route::post('/', [BrandController::class, 'createData']);
+    Route::put('/', [BrandController::class, 'updateData']);
+    Route::delete('/{id}', [BrandController::class, 'deleteData']);
 });
 
 Route::group(['prefix' => 'category'], function () {
