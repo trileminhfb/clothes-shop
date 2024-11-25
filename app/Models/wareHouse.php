@@ -15,8 +15,19 @@ class WareHouse extends Model
         'status',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($warehouse) {
+            $product = Product::find($warehouse->id_product);
+            if ($product) {
+                $product->delete();
+            }
+        });
+    }
+
     public function products()
     {
-        return $this->hasMany(Product::class, 'id_product');
+        return $this->hasMany(Product::class, 'id', 'id_product');
     }
 }

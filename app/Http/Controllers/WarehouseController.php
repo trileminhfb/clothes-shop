@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class WarehouseController extends Controller
@@ -11,11 +12,11 @@ class WarehouseController extends Controller
 
     public function getData()
     {
-        $warehouse = WareHouse::get();
+        $data = WareHouse::with(['products'])->get();
 
         return response()->json([
             'message' => 'lấy data sản phẩm thành công',
-            'data' => $warehouse,
+            'data' => $data,
         ], Response::HTTP_OK);
     }
 
@@ -63,22 +64,31 @@ class WarehouseController extends Controller
             'data' => $warehouse,
         ], Response::HTTP_OK);
     }
-
-    public function deleteData($id_product)
+    public function deleteData($id)
     {
-        $check = WareHouse::find($id_product);
+        try {
+            DB::beginTransaction();
 
-        if ($check) {
-            $check->delete();
+            $warehouse = WareHouse::find($id);
+
+            if ($warehouse) {
+                $warehouse->delete();
+
+                DB::commit();
+                return response()->json([
+                    'message' => 'Xoá sản phẩm trong kho thành công',
+                    'id' => $id,
+                ], Response::HTTP_OK);
+            }
 
             return response()->json([
-                'message' => 'Xoá sản phẩm thành công',
-                'id_product' => $id_product,
-            ], Response::HTTP_OK);
+                'message' => 'Sản phẩm trong kho không tồn tại',
+            ], Response::HTTP_BAD_REQUEST);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $th->getMessage(),
+            ], Response::HTTP_BAD_REQUEST);
         }
-
-        return response()->json([
-            'message' => 'Sản phẩm không tồn tại',
-        ], Response::HTTP_BAD_REQUEST);
     }
 }
