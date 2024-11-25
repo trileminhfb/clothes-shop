@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
@@ -22,4 +23,11 @@ Route::group(['prefix' => 'payment'], function () {
     Route::post('/', [PaymentController::class, 'createData']);
     Route::put('/', [PaymentController::class, 'updateData']);
     Route::delete('/{id}', [PaymentController::class, 'deleteData']);
+});
+
+Route::group(['prefix' => 'brand'], function () {
+    Route::get('/', [BrandController::class, 'getData']);
+    Route::post('/', [BrandController::class, 'createData']);
+    Route::put('/', [BrandController::class, 'updateData']);
+    Route::delete('/{id}', [BrandController::class, 'deleteData']);
 });
